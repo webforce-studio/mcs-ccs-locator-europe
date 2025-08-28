@@ -1,7 +1,10 @@
 {
-  "cleanUrls": true,
-  "rewrites": [
-    { "source": "/", "destination": "/output/index.html" },
-    { "source": "/:path*", "destination": "/output/:path*" }
+  "version": 2,
+  "builds": [
+    { "src": "output/**", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/", "dest": "/output/index.html" },
+    { "src": "/(.*)", "dest": "/output/$1" }
   ]
 }
