@@ -1,0 +1,51 @@
+[
+  {
+    "name": "Milence Landvetter Hub",
+    "city": "Landvetter (Gothenburg)",
+    "country": "Sweden",
+    "operator": "Milence",
+    "status": "live",
+    "source": "https://milence.com/press-release/milence-demonstrates-the-first-megawatt-charging-system-at-the-hub-in-landvetter-sweden-together-with-volvo-trucks/"
+  },
+  {
+    "name": "Milence Zwolle Hub",
+    "city": "Zwolle",
+    "country": "Netherlands",
+    "operator": "Milence",
+    "status": "live",
+    "source": "https://milence.com/press-release/milence-expands-dutch-network-with-a-new-charging-hub-in-zwolle-deploying-the-first-megawatt-charging-system-mcs-in-the-netherlands/"
+  },
+  {
+    "name": "Port of Antwerp-Bruges Hub",
+    "city": "Antwerp",
+    "country": "Belgium",
+    "operator": "Milence",
+    "status": "live",
+    "source": "https://volvotrucks.com/en-en/news-stories/insights/articles/2025/jun/what-is-mcs-charging.html"
+  },
+  {
+    "name": "Milence Dunkirk Hub",
+    "city": "Dunkirk",
+    "country": "France",
+    "operator": "Milence",
+    "status": "announced",
+    "source": "https://milence.com/press-release/milence-accelerates-expansion-in-france-reinforcing-europes-leading-charging-network/"
+  },
+  {
+    "name": "Recklinghausen Hub",
+    "city": "Recklinghausen",
+    "country": "Germany",
+    "operator": "Milence",
+    "status": "announced",
+    "source": "https://www.evcandi.com/news/milence-expands-france-and-germany"
+  },
+  {
+    "name": "Ashford International Truckstop",
+    "city": "Ashford",
+    "country": "United Kingdom",
+    "operator": "bp pulse",
+    "status": "announced",
+    "source": "https://www.volvotrucks.com/en-en/news-stories/insights/articles/2025/jun/what-is-mcs-charging.html"
+  }
+]
+

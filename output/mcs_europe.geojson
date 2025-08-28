@@ -1,0 +1,113 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.287763,
+          57.6624147
+        ]
+      },
+      "properties": {
+        "name": "Milence Landvetter Hub",
+        "city": "Landvetter (Gothenburg)",
+        "country": "Sweden",
+        "operator": "Milence",
+        "status": "live",
+        "source": "https://milence.com/press-release/milence-demonstrates-the-first-megawatt-charging-system-at-the-hub-in-landvetter-sweden-together-with-volvo-trucks/"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.0943765,
+          52.5089759
+        ]
+      },
+      "properties": {
+        "name": "Milence Zwolle Hub",
+        "city": "Zwolle",
+        "country": "Netherlands",
+        "operator": "Milence",
+        "status": "live",
+        "source": "https://milence.com/press-release/milence-expands-dutch-network-with-a-new-charging-hub-in-zwolle-deploying-the-first-megawatt-charging-system-mcs-in-the-netherlands/"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.3997081,
+          51.2211097
+        ]
+      },
+      "properties": {
+        "name": "Port of Antwerp-Bruges Hub",
+        "city": "Antwerp",
+        "country": "Belgium",
+        "operator": "Milence",
+        "status": "live",
+        "source": "https://volvotrucks.com/en-en/news-stories/insights/articles/2025/jun/what-is-mcs-charging.html"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.3772525,
+          51.0347708
+        ]
+      },
+      "properties": {
+        "name": "Milence Dunkirk Hub",
+        "city": "Dunkirk",
+        "country": "France",
+        "operator": "Milence",
+        "status": "announced",
+        "source": "https://milence.com/press-release/milence-accelerates-expansion-in-france-reinforcing-europes-leading-charging-network/"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.1978546,
+          51.6143815
+        ]
+      },
+      "properties": {
+        "name": "Recklinghausen Hub",
+        "city": "Recklinghausen",
+        "country": "Germany",
+        "operator": "Milence",
+        "status": "announced",
+        "source": "https://www.evcandi.com/news/milence-expands-france-and-germany"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          0.8722566,
+          51.148555
+        ]
+      },
+      "properties": {
+        "name": "Ashford International Truckstop",
+        "city": "Ashford",
+        "country": "United Kingdom",
+        "operator": "bp pulse",
+        "status": "announced",
+        "source": "https://www.volvotrucks.com/en-en/news-stories/insights/articles/2025/jun/what-is-mcs-charging.html"
+      }
+    }
+  ]
+}

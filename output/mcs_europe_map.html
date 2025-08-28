@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_0499e11650f5bbef041ade276ccf525b {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.Default.css"/>
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_0499e11650f5bbef041ade276ccf525b" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_0499e11650f5bbef041ade276ccf525b = L.map(
+                "map_0499e11650f5bbef041ade276ccf525b",
+                {
+                    center: [51.1657, 10.4515],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 5,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_bcb98876d76242f44f88ec690f41bd0a = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e", "detectRetina": false, "maxNativeZoom": 20, "maxZoom": 20, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abcd", "tms": false}
+            );
+        
+    
+            tile_layer_bcb98876d76242f44f88ec690f41bd0a.addTo(map_0499e11650f5bbef041ade276ccf525b);
+        
+    
+            var marker_cluster_7d4626912878a7c3bcccc117d70affc4 = L.markerClusterGroup(
+                {}
+            );
+        
+    
+            var circle_marker_f3ce52529c708c774626fce3fcf47050 = L.circleMarker(
+                [57.6624147, 12.287763],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_7d4626912878a7c3bcccc117d70affc4);
+        
+    
+        var popup_fcafcc1bf487cf99be9309f9ada706b2 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_3d50b475e012ef207851c92c5b9fc413 = $(`<div id="html_3d50b475e012ef207851c92c5b9fc413" style="width: 100.0%; height: 100.0%;"><b>Milence Landvetter Hub</b><br/>         Landvetter (Gothenburg), Sweden<br/>         Operator: Milence<br/>         Status: live<br/>         <a href="https://milence.com/press-release/milence-demonstrates-the-first-megawatt-charging-system-at-the-hub-in-landvetter-sweden-together-with-volvo-trucks/" target="_blank">Source</a></div>`)[0];
+                popup_fcafcc1bf487cf99be9309f9ada706b2.setContent(html_3d50b475e012ef207851c92c5b9fc413);
+            
+        
+
+        circle_marker_f3ce52529c708c774626fce3fcf47050.bindPopup(popup_fcafcc1bf487cf99be9309f9ada706b2)
+        ;
+
+        
+    
+    
+            var circle_marker_9842aea59276aed7d433433bdbbbaf22 = L.circleMarker(
+                [52.5089759, 6.0943765],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_7d4626912878a7c3bcccc117d70affc4);
+        
+    
+        var popup_044f289f6904efd46adcce01ad86ad14 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_1cc7ae99c40657d5255b1c85cfd2e092 = $(`<div id="html_1cc7ae99c40657d5255b1c85cfd2e092" style="width: 100.0%; height: 100.0%;"><b>Milence Zwolle Hub</b><br/>         Zwolle, Netherlands<br/>         Operator: Milence<br/>         Status: live<br/>         <a href="https://milence.com/press-release/milence-expands-dutch-network-with-a-new-charging-hub-in-zwolle-deploying-the-first-megawatt-charging-system-mcs-in-the-netherlands/" target="_blank">Source</a></div>`)[0];
+                popup_044f289f6904efd46adcce01ad86ad14.setContent(html_1cc7ae99c40657d5255b1c85cfd2e092);
+            
+        
+
+        circle_marker_9842aea59276aed7d433433bdbbbaf22.bindPopup(popup_044f289f6904efd46adcce01ad86ad14)
+        ;
+
+        
+    
+    
+            var circle_marker_7f9f6cf62038d81b52cab46566d5aa61 = L.circleMarker(
+                [51.2211097, 4.3997081],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_7d4626912878a7c3bcccc117d70affc4);
+        
+    
+        var popup_f2a5c4f9ae7b61a056e6d868c43c0a32 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_b71e1df98b2de15a2c677af1e7c801fd = $(`<div id="html_b71e1df98b2de15a2c677af1e7c801fd" style="width: 100.0%; height: 100.0%;"><b>Port of Antwerp-Bruges Hub</b><br/>         Antwerp, Belgium<br/>         Operator: Milence<br/>         Status: live<br/>         <a href="https://volvotrucks.com/en-en/news-stories/insights/articles/2025/jun/what-is-mcs-charging.html" target="_blank">Source</a></div>`)[0];
+                popup_f2a5c4f9ae7b61a056e6d868c43c0a32.setContent(html_b71e1df98b2de15a2c677af1e7c801fd);
+            
+        
+
+        circle_marker_7f9f6cf62038d81b52cab46566d5aa61.bindPopup(popup_f2a5c4f9ae7b61a056e6d868c43c0a32)
+        ;
+
+        
+    
+    
+            var circle_marker_856f7ca84021e0b00602830305f0379f = L.circleMarker(
+                [51.0347708, 2.3772525],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_7d4626912878a7c3bcccc117d70affc4);
+        
+    
+        var popup_3df2f0b1cb97a060faec0e07330e3114 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_54d22e597ea8deaff55184be83a69ec6 = $(`<div id="html_54d22e597ea8deaff55184be83a69ec6" style="width: 100.0%; height: 100.0%;"><b>Milence Dunkirk Hub</b><br/>         Dunkirk, France<br/>         Operator: Milence<br/>         Status: announced<br/>         <a href="https://milence.com/press-release/milence-accelerates-expansion-in-france-reinforcing-europes-leading-charging-network/" target="_blank">Source</a></div>`)[0];
+                popup_3df2f0b1cb97a060faec0e07330e3114.setContent(html_54d22e597ea8deaff55184be83a69ec6);
+            
+        
+
+        circle_marker_856f7ca84021e0b00602830305f0379f.bindPopup(popup_3df2f0b1cb97a060faec0e07330e3114)
+        ;
+
+        
+    
+    
+            var circle_marker_cd86d49f9fe09d814aff237c275df95a = L.circleMarker(
+                [51.6143815, 7.1978546],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_7d4626912878a7c3bcccc117d70affc4);
+        
+    
+        var popup_729a5e568f13c17181a727899455bdf3 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_d56986a750828729fe98c963d5ee6c91 = $(`<div id="html_d56986a750828729fe98c963d5ee6c91" style="width: 100.0%; height: 100.0%;"><b>Recklinghausen Hub</b><br/>         Recklinghausen, Germany<br/>         Operator: Milence<br/>         Status: announced<br/>         <a href="https://www.evcandi.com/news/milence-expands-france-and-germany" target="_blank">Source</a></div>`)[0];
+                popup_729a5e568f13c17181a727899455bdf3.setContent(html_d56986a750828729fe98c963d5ee6c91);
+            
+        
+
+        circle_marker_cd86d49f9fe09d814aff237c275df95a.bindPopup(popup_729a5e568f13c17181a727899455bdf3)
+        ;
+
+        
+    
+    
+            var circle_marker_39c609efc0adea2f657f0fdeaa648584 = L.circleMarker(
+                [51.148555, 0.8722566],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.8, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7, "stroke": true, "weight": 3}
+            ).addTo(marker_cluster_7d4626912878a7c3bcccc117d70affc4);
+        
+    
+        var popup_f2c958e29e15609cdc5deaf1764e2504 = L.popup({"maxWidth": 300});
+
+        
+            
+                var html_2f4b7a14fe6bfb3f3da4b0a16c9d18e3 = $(`<div id="html_2f4b7a14fe6bfb3f3da4b0a16c9d18e3" style="width: 100.0%; height: 100.0%;"><b>Ashford International Truckstop</b><br/>         Ashford, United Kingdom<br/>         Operator: bp pulse<br/>         Status: announced<br/>         <a href="https://www.volvotrucks.com/en-en/news-stories/insights/articles/2025/jun/what-is-mcs-charging.html" target="_blank">Source</a></div>`)[0];
+                popup_f2c958e29e15609cdc5deaf1764e2504.setContent(html_2f4b7a14fe6bfb3f3da4b0a16c9d18e3);
+            
+        
+
+        circle_marker_39c609efc0adea2f657f0fdeaa648584.bindPopup(popup_f2c958e29e15609cdc5deaf1764e2504)
+        ;
+
+        
+    
+    
+            marker_cluster_7d4626912878a7c3bcccc117d70affc4.addTo(map_0499e11650f5bbef041ade276ccf525b);
+        
+</script>
+</html>

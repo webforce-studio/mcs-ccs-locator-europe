@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MCS Locator (Europe)</title>
+  <link href="vendor/maplibre-gl.css" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html, body { height: 100%; }
+    #map { height: 100%; }
+    .marker { width: 14px; height: 14px; border-radius: 9999px; border: 2px solid white; box-shadow: 0 0 0 1px rgba(0,0,0,0.1); }
+    .card-active { outline: 2px solid #0ea5e9; }
+  </style>
+</head>
+<body class="h-full">
+  <div class="h-full flex">
+    <aside class="w-96 max-w-full border-r border-gray-200 bg-white flex flex-col">
+      <div class="p-4 border-b">
+        <h1 class="text-xl font-semibold">MCS Locator (Europe)</h1>
+        <p class="text-sm text-gray-600">Megawatt Charging System sites</p>
+      </div>
+      <div class="p-3 border-b">
+        <div class="text-xs font-medium text-gray-700 mb-2">Filters</div>
+        <div class="flex items-center gap-4 text-sm">
+          <label class="inline-flex items-center gap-2">
+            <input id="flt-mcs" type="checkbox" class="accent-sky-600" checked />
+            <span>MCS</span>
+          </label>
+          <label class="inline-flex items-center gap-2">
+            <input id="flt-ccs" type="checkbox" class="accent-sky-600" checked />
+            <span>CCS ≥50 kW</span>
+          </label>
+        </div>
+      </div>
+      <div id="cards" class="flex-1 overflow-auto divide-y"></div>
+    </aside>
+    <main class="flex-1 relative">
+      <div id="map" class="w-full h-full"></div>
+      <div id="map-attrib" class="absolute bottom-2 right-2 text-xs bg-white/90 rounded px-2 py-1 shadow">Map © OpenStreetMap contributors | MapLibre</div>
+    </main>
+  </div>
+
+  <script>
+    function loadScript(src) {
+      return new Promise((resolve, reject) => {
+        const s = document.createElement('script');
+        s.src = src; s.async = true;
+        s.onload = () => resolve();
+        s.onerror = () => reject(new Error('Failed to load ' + src));
+        document.head.appendChild(s);
+      });
+    }
+
+    async function ensureMapLibre() {
+      if (window.maplibregl) return true;
+      const candidates = [
+        'https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/3.7.0/maplibre-gl.min.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/3.7.0/maplibre-gl.js',
+        'https://unpkg.com/maplibre-gl@3.7.0/dist/maplibre-gl.js',
+        'https://cdn.jsdelivr.net/npm/maplibre-gl@3.7.0/dist/maplibre-gl.js'
+      ];
+      for (const url of candidates) {
+        try { await loadScript(url); if (window.maplibregl) return true; } catch (e) {}
+      }
+      return false;
+    }
+
+    const statusColors = { live: 'bg-green-600', pilot: 'bg-orange-500', announced: 'bg-blue-600' };
+    const typeColors = { MCS: 'bg-sky-600', CCS: 'bg-rose-600' };
+    const cardsEl = document.getElementById('cards');
+
+    const OSM_STYLE = { version: 8, sources: { osm: { type: 'raster', tiles: ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'], tileSize: 256, attribution: '© OpenStreetMap contributors' } }, layers: [{ id: 'osm', type: 'raster', source: 'osm' }] };
+
+    async function loadGeoJSON(url) {
+      const res = await fetch(url, { cache: 'no-cache' });
+      if (!res.ok) return { type: 'FeatureCollection', features: [] };
+      return res.json();
+    }
+
+    function createCardHTML(feature, idx) {
+      const p = feature.properties;
+      const badge = p.siteType || 'MCS';
+      return `<div data-idx="${idx}" class="card cursor-pointer p-4 hover:bg-gray-50"><div class="flex items-start gap-3"><div class="mt-1"><span class="inline-block w-3 h-3 rounded-full ${statusColors[p.status] || typeColors[badge] || 'bg-blue-600'}"></span></div><div class="min-w-0"><div class="font-medium leading-5">${p.name}</div><div class="text-sm text-gray-600">${p.city || ''}${p.city && p.country ? ', ' : ''}${p.country || ''}</div><div class="text-sm text-gray-600">Operator: ${p.operator || ''}</div><div class="mt-1 text-xs flex items-center gap-2"><span class="px-2 py-0.5 rounded-full bg-gray-100 text-gray-700">${p.status || '—'}</span><span class="px-2 py-0.5 rounded-full ${typeColors[badge] || 'bg-blue-600'} text-white">${badge}</span></div><div class="mt-2 text-xs"><a class="text-sky-600 hover:underline" href="${p.source}" target="_blank" rel="noopener">Source</a></div></div></div></div>`;
+    }
+
+    function createPopupHTML(p) {
+      const badge = p.siteType || 'MCS';
+      return `<div class="text-sm"><div class="font-medium">${p.name}</div><div class="text-gray-700">${p.city || ''}${p.city && p.country ? ', ' : ''}${p.country || ''}</div><div class="text-gray-700">Operator: ${p.operator || ''}</div><div class="mt-1 flex items-center gap-2"><span class="px-2 py-0.5 rounded-full bg-gray-100 text-gray-700 text-xs">${p.status || '—'}</span><span class="px-2 py-0.5 rounded-full ${typeColors[badge] || 'bg-blue-600'} text-white text-xs">${badge}</span></div><div class="mt-2 text-xs"><a class="text-sky-600 hover:underline" href="${p.source}" target="_blank" rel="noopener">Source</a></div></div>`;
+    }
+
+    function fitToFeatures(map, features) {
+      if (!features.length || !window.maplibregl) return;
+      const bounds = new maplibregl.LngLatBounds();
+      for (const f of features) bounds.extend(f.geometry.coordinates);
+      map.fitBounds(bounds, { padding: { top: 40, bottom: 40, left: 40, right: 40 } });
+    }
+
+    (async () => {
+      const [hasML, mcsData, ccsData] = await Promise.all([
+        ensureMapLibre(),
+        loadGeoJSON('mcs_europe.geojson'),
+        loadGeoJSON('ccs_europe.geojson')
+      ]);
+
+      // Normalize features and tag siteType
+      const normalize = (fc, siteType) => (fc.features || []).map(f => ({
+        type: 'Feature',
+        geometry: f.geometry,
+        properties: { siteType, status: 'announced', ...(f.properties || {}) }
+      }));
+
+      const mcs = normalize(mcsData, 'MCS');
+      const ccs = normalize(ccsData, 'CCS');
+      const allFeatures = [...mcs, ...ccs];
+
+      // Sidebar + Map rendering with filters
+      const fltMcs = document.getElementById('flt-mcs');
+      const fltCcs = document.getElementById('flt-ccs');
+
+      let map = null;
+      let popup = null;
+      let markers = [];
+
+      if (hasML) {
+        map = new maplibregl.Map({ container: 'map', style: OSM_STYLE, center: [10.4515, 51.1657], zoom: 4.5, attributionControl: true });
+        map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }));
+        popup = new maplibregl.Popup({ closeButton: true, closeOnClick: true });
+      } else {
+        document.getElementById('map').innerHTML = `<iframe src=\"mcs_europe_map.html\" class=\"w-full h-full border-0\"></iframe>`;
+      }
+
+      function clearMarkers() {
+        markers.forEach(m => m.remove && m.remove());
+        markers = [];
+      }
+
+      function highlightCard(index) {
+        const cardNodes = Array.from(document.querySelectorAll('#cards .card'));
+        cardNodes.forEach(n => n.classList.remove('card-active'));
+        const card = cardNodes[index];
+        if (card) { card.classList.add('card-active'); card.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+      }
+
+      function render() {
+        const enabled = [];
+        if (fltMcs.checked) enabled.push('MCS');
+        if (fltCcs.checked) enabled.push('CCS');
+        const filtered = allFeatures.filter(f => enabled.includes((f.properties || {}).siteType || 'MCS'));
+
+        // Cards
+        cardsEl.innerHTML = filtered.map((f, i) => createCardHTML(f, i)).join('');
+
+        // Map markers
+        if (hasML) {
+          clearMarkers();
+          filtered.forEach((f, i) => {
+            const [lng, lat] = f.geometry.coordinates;
+            const p = f.properties || {}; const badge = p.siteType || 'MCS';
+            const el = document.createElement('div');
+            el.className = `marker ${typeColors[badge] || 'bg-blue-600'}`;
+            el.title = p.name || '';
+            const marker = new maplibregl.Marker({ element: el, anchor: 'center' }).setLngLat([lng, lat]).addTo(map);
+            markers.push(marker);
+            el.addEventListener('click', (e) => {
+              e.stopPropagation(); if (!popup) return;
+              popup.setLngLat([lng, lat]).setHTML(createPopupHTML(p)).addTo(map);
+              highlightCard(i);
+            });
+          });
+          fitToFeatures(map, filtered);
+        }
+
+        // Card interactions
+        Array.from(document.querySelectorAll('#cards .card')).forEach((card) => {
+          const idx = Number(card.getAttribute('data-idx'));
+          card.addEventListener('click', () => {
+            const f = filtered[idx];
+            if (!f) return;
+            const [lng, lat] = f.geometry.coordinates;
+            if (hasML && map) {
+              map.flyTo({ center: [lng, lat], zoom: 10 });
+              popup && popup.setLngLat([lng, lat]).setHTML(createPopupHTML(f.properties)).addTo(map);
+            } else {
+              window.open(`https://www.openstreetmap.org/?mlat=${lat}&mlon=${lng}#map=12/${lat}/${lng}`, '_blank');
+            }
+            highlightCard(idx);
+          });
+        });
+      }
+
+      fltMcs.addEventListener('change', render);
+      fltCcs.addEventListener('change', render);
+      render();
+    })().catch(err => {
+      console.error(err);
+      cardsEl.innerHTML = `<div class=\"p-4 text-red-600 text-sm\">Failed to initialize: ${err.message}</div>`;
+    });
+  </script>
+</body>
+</html>
